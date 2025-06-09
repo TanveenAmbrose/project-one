@@ -7,11 +7,15 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-       <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-    </>
+    <main>
+      <div className='pattern'/>
+      <div className='wrapper'>
+        <header>
+          <h1>Find <span className='text-gradient'>Movies</span> You'll Enjoy Without Hassle</h1>
+        </header>
+        <p>Search</p>
+      </div>
+    </main>
   )
 }
 
