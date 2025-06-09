@@ -1,9 +1,17 @@
 import React from 'react'
 
-function Search(props) {
+function Search({searchTerm,setSearchTerm}) {
   return (
-    <div className='text-white text-3xl'>
-      Search
+    <div className='search'>
+        <div>
+            <img src="search.svg" alt="Search" />
+            <input 
+            type="text" 
+            placeholder='Enter The Movie Name'
+            value={searchTerm}
+            onChange={(e)=>{setSearchTerm(e.target.value)}}
+            />
+        </div>
     </div>
   )
 }
