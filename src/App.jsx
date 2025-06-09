@@ -40,7 +40,7 @@ function App() {
 
     catch(error){
       console.error(`Error Detected ${error}`);
-      setErrorMessege("The Movie is Currently Not Available")
+      setErrorMessage("The Movie is Currently Not Available")
     }
     finally{
       setIsLoading(false);
