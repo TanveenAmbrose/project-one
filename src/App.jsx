@@ -1,46 +1,49 @@
 import { useState, useEffect } from 'react'
 import './index.css'
 import Search from './components/search'
-const API_BASE_URL ='https://api.themoviedb.org/3';
-const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
+const API_BASE_URL ='https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc';
+const API_KEY = 'eb0f2b704cb44658d38aff9391f75471';
 const API_OPTIONS ={
   method : 'GET',
-  Headers :{
+  headers :{
     accept : 'application/json',
-    Authorization :`Bearer ${API_KEY}`
+    Authorization :`Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlYjBmMmI3MDRjYjQ0NjU4ZDM4YWZmOTM5MWY3NTQ3MSIsIm5iZiI6MTc0OTQ1MDA4MS43MjUsInN1YiI6IjY4NDY3ZDYxN2VlNWU5MDAwOGZkNWYxNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.i16N6m1NowgbsjbPJ4ti2Fkr_oON4GKS-dCXRiO3HEw`
   }
 }
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [errorMessege, setErrorMessege] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [movieList, setMovieList] = useState([]);
-  const [isLoading, setIsLoding] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchMovies = async()=>{
-      setIsLoding(true);
-      setErrorMessege('');
+      setIsLoading(true);
+      setErrorMessage('');
 
     try{
-      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endpoint = API_BASE_URL;
       const response = await fetch(endpoint, API_OPTIONS);
       if(!response.ok){
         throw new Error('Failed to Fetch Movies'); 
       }
       const data = await response.json();
-      if(data.response === 'False' ){
-        setErrorMessege(data.Error || 'Failed To Fetch Movies');
+      console.log(data);
+      if(data.success === false){
+        setErrorMessage(data.status_message || 'Failed To Fetch Movies');
         setMovieList([]);
         return;
       }
       setMovieList(data.results || [])
     }
+
+
     catch(error){
-      console.log(`Error Detected ${error}`);
+      console.error(`Error Detected ${error}`);
       setErrorMessege("The Movie is Currently Not Available")
     }
     finally{
-      setIsLoding(false);
+      setIsLoading(false);
     }
   }
 
@@ -61,12 +64,12 @@ function App() {
         <section className='all-movies'>
             <h2>All Movies</h2>
             {isLoading ?
-            (<p className='text-white'>Loading....</p>) : errorMessege ? (<p className='text-red-500'>{errorMessege}
-            </p>) : <ul>
+            (<p className='text-white'>Loading....</p>) : errorMessage ? (<p className='text-red-500'>{errorMessage}
+            </p>) : (<ul>
               {movieList.map((movie)=>(
                 <p key={movie.id} className='text-white'>{movie.title}</p>
                 ))}
-            </ul>
+            </ul>)
             }
         </section>
         
