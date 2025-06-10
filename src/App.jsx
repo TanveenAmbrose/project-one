@@ -5,6 +5,7 @@ import Spinner from './components/Spinner';
 import MovieCard from './components/MovieCard';
 
 const API_BASE_URL ='https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc';
+const SEARCH_API_URL = 'https://api.themoviedb.org/3/search/movie';
 const API_KEY = 'eb0f2b704cb44658d38aff9391f75471';
 const API_OPTIONS ={
   method : 'GET',
@@ -25,7 +26,7 @@ function App() {
       setErrorMessage('');
 
     try{
-      const endpoint = API_BASE_URL;
+      const endpoint = query ? `${SEARCH_API_URL}?query=${encodeURIComponent(query)}` : API_BASE_URL;
       const response = await fetch(endpoint, API_OPTIONS);
       if(!response.ok){
         throw new Error('Failed to Fetch Movies'); 
@@ -51,8 +52,8 @@ function App() {
   }
 
   useEffect(()=>{
-      fetchMovies();
-  },[])
+      fetchMovies(searchTerm);
+  },[searchTerm])
 
   return (
     <main>
