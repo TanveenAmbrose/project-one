@@ -4,6 +4,7 @@ import './index.css'
 import Search from './components/search'
 import Spinner from './components/Spinner';
 import MovieCard from './components/MovieCard';
+import { updateSearchCount } from './appwrite';
 
 const API_BASE_URL ='https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc';
 const SEARCH_API_URL = 'https://api.themoviedb.org/3/search/movie';
@@ -43,7 +44,9 @@ function App() {
         setMovieList([]);
         return;
       }
-      setMovieList(data.results || [])
+      setMovieList(data.results || []);
+
+      updateSearchCount();
     }
 
 
