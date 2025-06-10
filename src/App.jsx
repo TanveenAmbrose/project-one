@@ -20,7 +20,7 @@ function App() {
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchMovies = async()=>{
+  const fetchMovies = async(query='')=>{
       setIsLoading(true);
       setErrorMessage('');
 
