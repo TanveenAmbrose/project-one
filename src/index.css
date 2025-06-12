@@ -1,10 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
-@import "tailwindcss/preflight";
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
+@theme {
   --color-primary: #030014;
 
   --color-light-100: #cecefb;
@@ -14,7 +13,7 @@
 
   --color-dark-100: #0f0d23;
 
-  --font-dm-sans: 'DM Sans', sans-serif;
+  --font-dm-sans: DM Sans, sans-serif;
 
   --breakpoint-xs: 480px;
 
@@ -23,9 +22,9 @@
 
 @layer base {
   body {
-    font-family: var(--font-dm-sans);
+    font-family: "DM Sans", serif;
     font-optical-sizing: auto;
-    background: var(--color-primary);
+    background: #030014;
   }
 
   h1 {
@@ -70,7 +69,7 @@
     }
 
     & ul li p {
-      @apply fancy-text mt-[22px] whitespace-nowrap;
+      @apply fancy-text mt-[22px] text-nowrap;
     }
 
     & ul li img {
@@ -90,7 +89,7 @@
     }
 
     & input {
-      @apply w-full bg-transparent py-2 sm:pr-10 pl-10 text-base text-gray-200 placeholder-light-200 outline-none;
+      @apply w-full bg-transparent py-2 sm:pr-10 pl-10 text-base text-gray-200 placeholder-light-200 outline-hidden;
     }
   }
 
@@ -122,7 +121,7 @@
     }
 
     & .rating img {
-      @apply w-4 h-4 object-contain;
+      @apply size-4 object-contain;
     }
 
     & .rating p {
@@ -143,23 +142,21 @@
   }
 }
 
-@layer utilities {
-  .text-gradient {
-    @apply bg-gradient-to-r from-[#D6C7FF] to-[#AB8BFF] bg-clip-text text-transparent;
-  }
+@utility text-gradient {
+  @apply bg-linear-to-r from-[#D6C7FF] to-[#AB8BFF] bg-clip-text text-transparent;
+}
 
-  .fancy-text {
-    -webkit-text-stroke: 5px rgba(206, 206, 251, 0.5);
-    font-size: 190px;
-    font-family: 'Bebas Neue', sans-serif;
-  }
+@utility fancy-text {
+  -webkit-text-stroke: 5px rgba(206, 206, 251, 0.5);
+  font-size: 190px;
+  font-family: "Bebas Neue", sans-serif;
+}
 
-  .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+@utility hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
-  .hide-scrollbar::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 }
