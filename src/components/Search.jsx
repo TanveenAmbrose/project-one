@@ -4,7 +4,7 @@ function Search({searchTerm,setSearchTerm}) {
   return (
     <div className='search'>
         <div>
-            <img src="search.svg" alt="Search" />
+            <img src="/project-one/search.svg" alt="Search" />
             <input 
             type="text" 
             placeholder='Enter The Movie Name'
